@@ -1,0 +1,48 @@
+body {
+  background-color: #000639;
+  color: #FFF; }
+
+.wrapper {
+  margin-top: 100px;
+  text-align: center;
+  font-family: Sans-Serif; }
+
+h1.title {
+  width: 550px;
+  margin: auto;
+  font-size: 24px;
+  overflow-wrap: normal;
+  word-break: keep-all; }
+
+p {
+  font-size: 16px;
+  margin-top: 20px; }
+
+p.subtitle {
+  opacity: 0.85; }
+
+input[type=text], button {
+  font-size: 13px;
+  height: 50px;
+  border: none;
+  border-radius: 5px; }
+
+input[type=text] {
+  width: 280px;
+  padding-left: 20px; }
+
+button {
+  background-color: #5c6ac4;
+  color: #FFF;
+  width: 125px; }
+
+#validationResult {
+  margin-top: 10px; }
+
+.validationError {
+  color: #C23628; }
+
+.validationSuccess {
+  color: #7AB55C; }
+
+/*# sourceMappingURL=main.css.map */
