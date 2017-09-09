@@ -40,7 +40,7 @@ namespace Backend_CSharp.Services
             string responseAsString = await response.Content.ReadAsStringAsync();
             var jsonObject = JObject.Parse(responseAsString);
             //Debug.WriteLine(jsonObject.ToString());
-            
+
             // Parse Validations
             //Debug.WriteLine(jsonObject["validations"].ToString());
             var validationResults = JsonConvert.DeserializeObject<List<JObject>>(jsonObject["validations"].ToString());
@@ -58,7 +58,10 @@ namespace Backend_CSharp.Services
                     if (requiredToken != null)
                     {
                         if (bool.TryParse(requiredToken.ToString(), out bool b))
+                        {
                             constraint.Required = b;
+                            //Console.WriteLine($"{property.Key} | {requiredToken.ToString()} | {b} | {constraint.Required}");
+                        }
                     }
 
                     // Get the Type if it exists
@@ -101,7 +104,33 @@ namespace Backend_CSharp.Services
 
             // Parse Customers
             //Debug.WriteLine(jsonObject["customers"].ToString());
-            var customers = JsonConvert.DeserializeObject<List<Customer>>(jsonObject["customers"].ToString());
+            var customerResults = JsonConvert.DeserializeObject<List<JObject>>(jsonObject["customers"].ToString());
+            List<Customer> customers = new List<Customer>();
+            foreach (var item in customerResults)
+            {
+                Customer customer = new Customer();
+                customer.id = item.GetValue("id").ToObject<int>();
+                customer.name = item.GetValue("name").ToObject<string>();
+                customer.email = item.GetValue("email").ToObject<string>();
+                customer.country = item.GetValue("country").ToObject<string>();
+
+                // Get the age. Prevent Json.net from converting types
+                if (item.GetValue("age").Type == JTokenType.Null) { customer.age = null; }
+                else if (item.GetValue("age").Type == JTokenType.String) { customer.age = -1; }
+                else { customer.age = item.GetValue("age").ToObject<int?>(); }
+                //Debug.WriteLine(item.GetValue("age").Type);
+                //Debug.WriteLine(customer.age);
+
+                // Get newsletter. Prevent Json.net from converting types
+                if (item.GetValue("newsletter").Type == JTokenType.Null) { customer.newsletter = null; }
+                else if (item.GetValue("newsletter").Type == JTokenType.String) { customer.newsletter = null; }
+                else { customer.newsletter = item.GetValue("newsletter").ToObject<bool?>(); }
+                //Debug.WriteLine(customer.newsletter);
+                //Debug.WriteLine(item.GetValue("newsletter").Type);
+
+                //Debug.WriteLine(item.ToString());
+                customers.Add(customer);
+            }
 
             // Parse Paginations
             //Debug.WriteLine(jsonObject["pagination"].ToString());

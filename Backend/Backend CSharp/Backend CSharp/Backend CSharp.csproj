@@ -60,8 +60,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ReflectionHelpers.cs" />
+    <Compile Include="Services\ValidationService.cs" />
     <Content Include="Models\API Examples.txt" />
+    <Compile Include="Models\CustomerValidationResponse.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\InvalidCustomers.cs" />
     <Compile Include="Models\Pagination.cs" />
     <Compile Include="Models\Validation.cs" />
     <Compile Include="Program.cs" />

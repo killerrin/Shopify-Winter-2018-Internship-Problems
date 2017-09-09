@@ -43,6 +43,7 @@ namespace Backend_CSharp.Models
         {
             // Check early exit
             if (Min == null && Max == null) return false;
+            if (string.IsNullOrWhiteSpace(s)) return false;
 
             bool valid = true;
 

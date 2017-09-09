@@ -1,6 +1,7 @@
 ﻿using Backend_CSharp.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,8 @@ namespace Backend_CSharp
 {
     public class Program
     {
-        public static ShopifyCustomerAPIService m_CustomerAPIService = new ShopifyCustomerAPIService();
+        public static ShopifyCustomerAPIService CustomerAPIService = new ShopifyCustomerAPIService();
+        public static ValidationService ValidationService = new ValidationService();
 
         static void Main(string[] args)
         {
@@ -33,9 +35,13 @@ namespace Backend_CSharp
         
         public static async void CallAPI(int input)
         {
-            var apiCall = await m_CustomerAPIService.GetCustomers(input);
-
-            Console.WriteLine(apiCall);
+            var apiCall = await CustomerAPIService.GetCustomers(input);
+            var invalidCustomers = ValidationService.PreformValidations(apiCall.Validations, apiCall.Customers);
+            foreach (var invalidCustomer in invalidCustomers)
+            {
+                Console.WriteLine(invalidCustomer.ToString());
+                Debug.WriteLine(invalidCustomer.ToString());
+            }
         }
 
     }
