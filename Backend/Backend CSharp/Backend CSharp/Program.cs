@@ -1,4 +1,5 @@
 ﻿using Backend_CSharp.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,7 +19,7 @@ namespace Backend_CSharp
             bool runMainLoop = true;
             while (runMainLoop)
             {
-                Console.WriteLine("Which page would you like to access? ... or 'exit' to exit");
+                Console.Write("Which page would you like to access? ... or 'exit' to exit: ");
                 var inputStr = Console.ReadLine();
 
                 if (inputStr == "exit")
@@ -37,11 +38,14 @@ namespace Backend_CSharp
         {
             var apiCall = await CustomerAPIService.GetCustomers(input);
             var invalidCustomers = ValidationService.PreformValidations(apiCall.Validations, apiCall.Customers);
+            Console.WriteLine();
             foreach (var invalidCustomer in invalidCustomers)
             {
                 Console.WriteLine(invalidCustomer.ToString());
                 Debug.WriteLine(invalidCustomer.ToString());
             }
+
+            Console.WriteLine(JsonConvert.SerializeObject(invalidCustomers));
         }
 
     }
