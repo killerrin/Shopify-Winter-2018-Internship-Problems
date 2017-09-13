@@ -22,7 +22,32 @@
         <TextBlock Grid.Row="0" Text="Shopify - Order Viewer" Style="{ThemeResource TitleTextBlockStyle}"/>
 
         <Grid Grid.Row="1" Margin="0 10 0 0">
-            
+            <StackPanel Orientation="Vertical">
+                <TextBox Header="Customer Filter" PlaceholderText="Tyrion Lannister"/>
+                <TextBox Header="Product Filter" PlaceholderText="Dragon Pens"/>
+
+                <ListView x:Name="Orders" Margin="0 20 0 0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{Binding id}"/>
+                                <TextBlock Grid.Column="1">
+                                    <Run Text="{Binding customer.first_name}"/>
+                                    <Run Text=" "/>
+                                    <Run Text="{Binding customer.last_name}"/>
+                                </TextBlock>
+                                <TextBlock Grid.Column="2" Text="{Binding created_at}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>
