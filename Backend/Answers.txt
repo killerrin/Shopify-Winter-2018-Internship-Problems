@@ -1,0 +1,34 @@
+======================================
+Clean Version: 
+======================================
+
+Page 1:
+id:2 | invalid_fields:name
+id:5 | invalid_fields:name
+id:3 | invalid_fields:newsletter
+
+Page 2:
+id:6 | invalid_fields:name, age
+
+Page 3:
+id:11 | invalid_fields:name, email
+id:15 | invalid_fields:newsletter
+
+Page 4:
+None!
+
+======================================
+Json:
+======================================
+
+Page 1:
+[{"id":2,"invalid_fields":["name"]},{"id":5,"invalid_fields":["name"]},{"id":3,"invalid_fields":["newsletter"]}]
+
+Page 2:
+[{"id":6,"invalid_fields":["name","age"]}]
+
+Page 3:
+[{"id":11,"invalid_fields":["name","email"]},{"id":15,"invalid_fields":["newsletter"]}]
+
+Page 4: 
+[]
