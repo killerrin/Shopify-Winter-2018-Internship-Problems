@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using KillerrinStudiosToolkit.Helpers;
 using OrderViewer_UWP.Models.Enums;
+using OrderViewer_UWP.Collections;
+using OrderViewer_UWP.Services;
 
 namespace OrderViewer_UWP.ViewModels
 {
@@ -44,6 +46,20 @@ namespace OrderViewer_UWP.ViewModels
         }
         #endregion
 
+        ShopifyOrdersAPIService m_ordersAPIService = new ShopifyOrdersAPIService();
+
+        private FilteredOrdersObservableCollection m_filteredOrders = new FilteredOrdersObservableCollection();
+        public FilteredOrdersObservableCollection FilteredOrders
+        {
+            get { return m_filteredOrders; }
+            set
+            {
+                if (m_filteredOrders == value) return;
+                m_filteredOrders = value;
+                RaisePropertyChanged(nameof(FilteredOrders));
+            }
+        }
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -63,13 +79,18 @@ namespace OrderViewer_UWP.ViewModels
         }
 
         public override void Loaded()
-        {   
+        {
             // Handle Launch Args
-
+            //NavigationService.EnableBackButton();
         }
 
-        public override void OnNavigatedTo()
+        public override async void OnNavigatedTo()
         {
+            //ProgressService.Show();
+            var result = await m_ordersAPIService.GetAllOrders();
+
+            FilteredOrders.SetUnfilteredList(result.orders);
+            //ProgressService.Hide();
         }
 
         public override void OnNavigatedFrom()
@@ -98,5 +119,16 @@ namespace OrderViewer_UWP.ViewModels
         //    }
         //}
         #endregion
+
+        public RelayCommand ApplyFilterCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    FilteredOrders.ApplyFilters();
+                });
+            }
+        }
     }
 }

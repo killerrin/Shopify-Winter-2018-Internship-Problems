@@ -31,8 +31,6 @@ namespace OrderViewer_UWP
         public static MainPage Instance;
         public MainViewModel ViewModel { get { return (MainViewModel)DataContext; } }
 
-        public ProgressIndicator MainProgressIndicator { get; private set; }
-
         public MainPage()
         {
             Instance = this;
@@ -74,5 +72,14 @@ namespace OrderViewer_UWP
             }
         }
         #endregion
+
+        private void TextBox_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            //ViewModel.ApplyFilterCommand.Execute(null);
+        }
+
+        private void Orders_ItemClick(object sender, ItemClickEventArgs e)
+        {
+        }
     }
 }

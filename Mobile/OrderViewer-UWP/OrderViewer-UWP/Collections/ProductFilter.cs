@@ -3,6 +3,7 @@ using OrderViewer_UWP.Models.Shopify;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,19 +35,25 @@ namespace OrderViewer_UWP.Collections
             if (string.IsNullOrWhiteSpace(ProductName))
                 return collection;
 
+            Debug.Write($"Filtering {nameof(ProductFilter)} = {ProductName}");
             ObservableCollection<Order> filteredItems = new ObservableCollection<Order>();
 
+            string lowerProductName = ProductName.ToLower();
             for (int i = 0; i < collection.Count; i++)
             {
                 foreach (var item in collection[i].line_items)
                 {
-                    if (ProductName.ToLower().Contains(item.name.ToLower()))
+                    if (lowerProductName.Contains(item.name.ToLower()) ||
+                        lowerProductName.Contains(item.title.ToLower()) ||
+                        lowerProductName.Contains(item.variant_title.ToLower()))
+                    {
                         filteredItems.Add(collection[i]);
-                    if (ProductName.ToLower().Contains(item.variant_title.ToLower()))
-                        filteredItems.Add(collection[i]);
+                        break;
+                    }
                 }
             }
 
+            Debug.WriteLine(" | ...End Filter \n");
             return filteredItems;
         }
     }

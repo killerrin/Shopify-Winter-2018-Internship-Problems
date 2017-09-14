@@ -4,6 +4,7 @@ using OrderViewer_UWP.Models.Shopify;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,12 +82,13 @@ namespace OrderViewer_UWP.Collections
         }
         public FilteredOrdersObservableCollection(IList<Order> list)
         {
-            foreach (var i in list)
-            {
-                UnfilteredCollection.Add(i);
-            }
-
+            SetUnfilteredList(list);
             AddDefaultFilters();
+        }
+
+        public void SetUnfilteredList(IList<Order> list)
+        {
+            UnfilteredCollection = new ObservableCollection<Order>(list);
         }
 
         #region Filters
@@ -114,7 +116,7 @@ namespace OrderViewer_UWP.Collections
 
         public void ApplyFilters()
         {
-            //Debug.WriteLine("Applying Filters");
+            Debug.WriteLine($"Applying Filters - {CustomerFilter.CustomerName} | {ProductFilter.ProductName}");
             ObservableCollection<Order> filtered = new ObservableCollection<Order>(UnfilteredCollection);
 
             if (CustomerFilter != null)
@@ -123,6 +125,9 @@ namespace OrderViewer_UWP.Collections
                 filtered = ProductFilter.Filter(filtered);
 
             FilteredCollection = filtered;
+
+            // Update the Helpers
+            RaisePropertyChanged(nameof(TotalSpent));
         }
         #endregion
 
@@ -130,6 +135,25 @@ namespace OrderViewer_UWP.Collections
         public int UnfilteredCount { get { return UnfilteredCollection.Count; } }
         [JsonIgnore]
         public int FilteredCount { get { return FilteredCollection.Count; } }
+
+        #region Helpers
+        public double TotalSpent
+        {
+            get
+            {
+                double totalPrice = 0.0;
+                foreach (var item in FilteredCollection)
+                {
+                    if (double.TryParse(item.total_price, out double price))
+                    {
+                        totalPrice += price;
+                    }
+                }
+
+                return totalPrice;
+            }
+        }
+        #endregion
 
     }
 }
