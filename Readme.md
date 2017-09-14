@@ -13,6 +13,7 @@ Github Pages: https://killerrin.github.io/Shopify-Winter-2018-Internship-Problem
 
 # Mobile
 UWP Version: https://github.com/killerrin/Shopify-Winter-2018-Internship-Problems/tree/master/Mobile/OrderViewer-UWP
+![No Filter](/Mobile/OrderViewer-UWP/MobileNoFilter.png)
 ![No Filter](/Mobile/OrderViewer-UWP/NoFilter.png)
 ![Customer Filter](/Mobile/OrderViewer-UWP/CustomerFilter.png)
 ![Product Filter](/Mobile/OrderViewer-UWP/ProductFilter.png)
