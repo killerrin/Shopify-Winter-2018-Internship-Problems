@@ -30,6 +30,18 @@ namespace OrderViewer_UWP.Collections
             CustomerName = name;
         }
 
+        public bool MatchesCriteria(Customer customer)
+        {
+            string searchTerm = CustomerName.ToLower();
+
+            if (searchTerm.Contains(customer?.first_name.ToLower()) ||
+                searchTerm.Contains(customer?.last_name.ToLower()))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public ObservableCollection<Order> Filter(ObservableCollection<Order> collection)
         {
             if (string.IsNullOrWhiteSpace(CustomerName))

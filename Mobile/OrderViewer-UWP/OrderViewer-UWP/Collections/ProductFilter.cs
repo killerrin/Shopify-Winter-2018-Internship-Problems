@@ -30,6 +30,19 @@ namespace OrderViewer_UWP.Collections
             ProductName = name;
         }
 
+        public bool MatchesCriteria(LineItem item)
+        {
+            string searchTerm = ProductName.ToLower();
+
+            if (searchTerm.Contains(item.name.ToLower()) ||
+                searchTerm.Contains(item.title.ToLower()) ||
+                searchTerm.Contains(item.variant_title.ToLower()))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public ObservableCollection<Order> Filter(ObservableCollection<Order> collection)
         {
             if (string.IsNullOrWhiteSpace(ProductName))

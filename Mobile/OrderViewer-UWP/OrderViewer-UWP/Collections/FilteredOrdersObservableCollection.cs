@@ -128,6 +128,7 @@ namespace OrderViewer_UWP.Collections
 
             // Update the Helpers
             RaisePropertyChanged(nameof(TotalSpent));
+            RaisePropertyChanged(nameof(QuantityOfProduct)); 
         }
         #endregion
 
@@ -151,6 +152,26 @@ namespace OrderViewer_UWP.Collections
                 }
 
                 return totalPrice;
+            }
+        }
+
+        public int QuantityOfProduct
+        {
+            get
+            {
+                int totalQuantity = 0;
+                foreach (var order in FilteredCollection)
+                {
+                    foreach (var item in order.line_items)
+                    {
+                        if (ProductFilter.MatchesCriteria(item))
+                        {
+                            totalQuantity += item.quantity;
+                        }
+                    }
+                }
+
+                return totalQuantity;
             }
         }
         #endregion
