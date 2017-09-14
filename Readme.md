@@ -13,7 +13,7 @@ Github Pages: https://killerrin.github.io/Shopify-Winter-2018-Internship-Problem
 
 # Mobile
 UWP Version: https://github.com/killerrin/Shopify-Winter-2018-Internship-Problems/tree/master/Mobile/OrderViewer-UWP
-![No Filter](/Promotional/Marketplace%20Info/Windows%2010/Screenshots/Mobile/Dashboard_Menu.jpg)
-![Customer Filter](/Promotional/Marketplace%20Info/Windows%2010/Screenshots/Mobile/Dashboard_Statistics.jpg)
-![Product Filter](/Promotional/Marketplace%20Info/Windows%2010/Screenshots/Mobile/Search.jpg)
-![Customer and Product Filter](/Promotional/Marketplace%20Info/Windows%2010/Screenshots/Mobile/AnimeLibrary_Library.jpg)
+![No Filter](/Mobile/OrderViewer-UWP/NoFilter.png)
+![Customer Filter](/Mobile/OrderViewer-UWP/CustomerFilter.png)
+![Product Filter](/Mobile/OrderViewer-UWP/ProductFilter.png)
+![Customer and Product Filter](/Mobile/OrderViewer-UWP/CustomerAndProductFilter.png)
